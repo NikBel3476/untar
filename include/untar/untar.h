@@ -67,7 +67,7 @@ public:
   tarEntry() = default;
   // Default constructor, prefer this one
   tarEntry(std::string filename, int filesize, std::size_t startOfFile,
-           tarEntryType type, std::string parentTarFilename,
+           tarEntryType type, std::filesystem::path parentTarFilename,
            std::ifstream *_tarfile);
   // Constructor to avoid error for people who failed the instantiation. Could
   // disapear when I will have properly documented the library.
@@ -76,7 +76,7 @@ public:
   ~tarEntry() = default;
 
   // Get the tar filename where this file comes from
-  std::string getParentFilename();
+  std::filesystem::path getParentFilename();
   // Get the file size
   int getFileSize();
   // Get the filename (containing the path)
@@ -104,7 +104,7 @@ private:
   // Type of the entry
   tarEntryType _type;
   // What is my dad TAR ?
-  std::string _parentTarFilename;
+  std::filesystem::path _parentTarFilename;
 };
 
 // tarFile represents a TAR FILE opened. Important parts to be able to use it :
@@ -131,7 +131,7 @@ public:
   // Open a file in case you didn't instanciated the class with a filename
   void open(const std::filesystem::path &filename, int filter = All);
   // Get the filename of the opened file
-  std::string getFilename();
+  std::filesystem::path getFilename();
   // Map of tarEntries, containing all the files
   static std::map<std::string, tarEntry *> entries;
   // This is the tar filestream

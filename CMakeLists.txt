@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.1...3.28)
+cmake_minimum_required(VERSION 3.15)
 
 project(untar
   DESCRIPTION "Untar in memory pet project"
-  VERSION 1.0.0
+  VERSION 0.1.0
   LANGUAGES CXX)
 
 if(CMAKE_CXX_STANDARD)
@@ -22,7 +22,8 @@ target_include_directories(${PROJECT_NAME}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_11)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_EXTENSIONS OFF)
 
 include(CMakePackageConfigHelpers)
 

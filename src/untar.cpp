@@ -3,7 +3,7 @@
 namespace untar {
 
 tarEntry::tarEntry(std::string filename, int filesize, std::size_t startOfFile,
-                   tarEntryType type, std::string parentTarFilename,
+                   tarEntryType type, std::filesystem::path parentTarFilename,
                    std::ifstream *tarfile) {
   _tarfile = tarfile;
   _extracted = false;
@@ -19,7 +19,7 @@ tarEntry::tarEntry(tarEntry const &cpy) {
            cpy._parentTarFilename, cpy._tarfile);
 }
 
-std::string tarEntry::getParentFilename() { return _parentTarFilename; }
+std::filesystem::path tarEntry::getParentFilename() { return _parentTarFilename; }
 
 int tarEntry::getFileSize() { return _filesize; }
 
@@ -81,7 +81,7 @@ void tarFile::open(const std::filesystem::path &filename, int filter) {
   }
 }
 
-std::string tarFile::getFilename() { return _filename; }
+std::filesystem::path tarFile::getFilename() { return _filename; }
 
 void tarFile::addEntryToMap(std::string filename, int filesize,
                             tarEntryType type) {
