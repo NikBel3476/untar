@@ -21,6 +21,7 @@
 #include <map>
 #include <stdio.h>
 #include <string>
+#include <filesystem>
 
 namespace untar {
 
@@ -117,7 +118,7 @@ public:
   // tarFile::open(...)
   tarFile() = default;
   // Default initiation
-  tarFile(char *filename, int filter = All);
+  tarFile(const std::filesystem::path &filename, int filter = All);
   // The destructor
   ~tarFile();
 
@@ -128,7 +129,7 @@ public:
   std::ifstream *find(std::string filename, int *filesize, std::size_t *start);
 
   // Open a file in case you didn't instanciated the class with a filename
-  void open(char *filename, int filter = All);
+  void open(const std::filesystem::path &filename, int filter = All);
   // Get the filename of the opened file
   std::string getFilename();
   // Map of tarEntries, containing all the files
@@ -150,7 +151,7 @@ private:
   // Did we get entries ? If yes, don't get them again
   bool _get_all_entries;
   // Remember where comes the data form
-  char *_filename;
+  std::filesystem::path _filename;
 };
 
 } // namespace untar

@@ -39,7 +39,7 @@ std::ifstream *tarEntry::wantToExtract(int *filesize,
   return _tarfile;
 }
 
-tarFile::tarFile(char *filename, int filter) { this->open(filename, filter); }
+tarFile::tarFile(const std::filesystem::path &filename, int filter) { this->open(filename, filter); }
 
 tarFile::~tarFile() {
   // TODO
@@ -68,7 +68,7 @@ std::ifstream *tarFile::find(std::string filename, int *filesize,
   return myEntry->wantToExtract(filesize, start);
 }
 
-void tarFile::open(char *filename, int filter) {
+void tarFile::open(const std::filesystem::path &filename, int filter) {
   _get_all_entries = false;
   _filename = filename;
   _tarfile.open(_filename, std::ios_base::in | std::ios_base::binary);
